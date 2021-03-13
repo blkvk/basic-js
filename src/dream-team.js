@@ -7,8 +7,8 @@ module.exports = function createDreamTeam(members) {
   for (let i = 0; i < members.length; i++) {
     if (typeof members[i] == 'string') {
       str = members[i].trimStart().split(' ');
-      ans.push(str[0][0]);
+      ans.push(str[0][0].toUpperCase());
     }
   }
-  return ans.sort().join('').toUpperCase()
+  return ans.sort().join('')
 }
