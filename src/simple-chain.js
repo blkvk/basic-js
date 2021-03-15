@@ -1,34 +1,34 @@
 const CustomError = require("../extensions/custom-error");
 
 const chainMaker = {
-  chain : [],
+
+  chain: [],
+
   getLength() {
-    this.chain.length;
-    return this;
+    return this.chain.length;
   },
   addLink(value) {
-    if (value === null) {
-      this.chain.push(null);
-    } else {
-      this.chain.push(`( ${value} )`);
-    }
-    return this
+    this.chain.push(`( ${value} )`);
+    return this;
   },
   removeLink(position) {
-    if (isNaN(position) !== true && position > 0 && this.chain.length >= position){
-      this.chain.pop(position - 1);
-      return this;
-    } else {
+    if (typeof (position) !== 'number' ||
+        parseInt(position) !== position ||
+        position > this.chain.length || position < 1) {
+      this.chain = [];
       throw new Error();
     }
+    this.chain.splice(position - 1, 1);
+    return this;
   },
   reverseChain() {
     this.chain.reverse();
     return this;
   },
   finishChain() {
-    this.chain.join('~~');
-    return this.chain;
+    let result = this.chain.slice(0, this.chain.length);
+    this.chain = [];
+    return result.join('~~');
   }
 };
 
